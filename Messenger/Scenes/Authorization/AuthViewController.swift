@@ -5,7 +5,7 @@ final class AuthViewController: UIViewController {
     // MARK: - UI-elements
     
     private lazy var imageView: UIView = {
-        let view = LogoScreenView()
+        let view = LogoScreenView(typeOfScreen: .authorization)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
