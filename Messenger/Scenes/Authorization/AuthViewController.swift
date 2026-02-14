@@ -7,20 +7,44 @@ final class AuthViewController: UIViewController {
     private enum Constants {
         static let borderWidth: CGFloat = 1.0
         static let buttonCornerRadius: CGFloat = 14.0
+        static let toggleButtonSize: CGFloat = 20.0
+        
+        enum AttributedTitles {
+            static let logInButton = NSAttributedString(
+                string: "Войти",
+                attributes: [
+                    .font: UIFont.body,
+                    .foregroundColor: UIColor.white,
+                ]
+            )
+            static let forgotPasswordButton = NSAttributedString(
+                string: "Забыл пароль",
+                attributes: [
+                    .font: UIFont.body,
+                    .foregroundColor: UIColor.mBlue,
+                ]
+            )
+            static let registrationButton = NSAttributedString(
+                string: "Зарегистрироваться",
+                attributes: [
+                    .font: UIFont.body,
+                    .foregroundColor: UIColor.mBlue,
+                ]
+            )
+        }
     }
     
     // MARK: - UI-elements
     
     private lazy var imageView: LogoScreenView = {
-        let view = LogoScreenView(typeOfScreen: .authorization)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        LogoScreenView(typeOfScreen: .authorization)
     }()
     
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
         label.text = "Добро пожаловать"
-        // TODO: - Шрифт, выравнивание, цвет
+        label.font = UIFont.paragraph
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.heightAnchor.constraint(equalToConstant: 51).isActive = true
         return label
@@ -29,28 +53,43 @@ final class AuthViewController: UIViewController {
     private lazy var hintLabel: UILabel = {
         let label = UILabel()
         label.text = "Войдите, чтобы продолжить"
-        // TODO: - Шрифт, выравнивание, цвет
+        label.font = UIFont.body
+        label.textAlignment = .center
+        label.textColor = .mText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.heightAnchor.constraint(equalToConstant: 26).isActive = true
         return label
     }()
     
+    // TODO: - Переделать под UIView
     private lazy var loginField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .mField
         textField.placeholder = "Тег или email"
-        // TODO: - Шрифт, выравнивание
+        textField.font = UIFont.body
         textField.layer.cornerRadius = Constants.buttonCornerRadius
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor.constraint(equalToConstant: 58).isActive = true
         return textField
     }()
     
+    private lazy var toggleButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.eyeIcon, for: .normal)
+        button.addTarget(nil, action: #selector(toggleButtonPushed), for: .touchUpInside)
+        button.constraintEqualSides(withSize: Constants.toggleButtonSize)
+        return button
+    }()
+    
+    // TODO: - Переделать под UIView
     private lazy var passwordField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .mField
         textField.placeholder = "Пароль"
-        // TODO: - Шрифт, выравнивание, кнопка и стиль ввода
+        textField.font = UIFont.body
+        textField.isSecureTextEntry = true
+        textField.rightView = toggleButton
+        textField.rightViewMode = .always
         textField.layer.cornerRadius = Constants.buttonCornerRadius
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.heightAnchor.constraint(equalToConstant: 58).isActive = true
@@ -59,8 +98,10 @@ final class AuthViewController: UIViewController {
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()
-        // TODO: - Шрифт
-        button.setTitle("Войти", for: .normal)
+        button.setAttributedTitle(
+            Constants.AttributedTitles.logInButton,
+            for: .normal
+        )
         button.backgroundColor = .mBlue
         button.layer.cornerRadius = Constants.buttonCornerRadius
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -70,16 +111,20 @@ final class AuthViewController: UIViewController {
     
     private lazy var forgotPasswordButton: UIButton = {
         let button = UIButton()
-        // TODO: - Шрифт, цвет
-        button.setTitle("Забыл пароль", for: .normal)
+        button.setAttributedTitle(
+            Constants.AttributedTitles.forgotPasswordButton,
+            for: .normal
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var registrationButton: UIButton = {
         let button = UIButton()
-        // TODO: - Шрифт, цвет
-        button.setTitle("Зарегистрироваться", for: .normal)
+        button.setAttributedTitle(
+            Constants.AttributedTitles.registrationButton,
+            for: .normal
+        )
         button.backgroundColor = .clear
         button.layer.borderWidth = Constants.borderWidth
         button.layer.borderColor = UIColor.mBlue.cgColor
@@ -97,17 +142,33 @@ final class AuthViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Actions
+    
+    @objc
+    private func toggleButtonPushed() {
+        passwordField.isSecureTextEntry.toggle()
+    }
+    
     // MARK: - Private methods
     
     private func setupView() {
         view.backgroundColor = .mBackground
-        [imageView, greetingLabel, hintLabel, loginField, passwordField, logInButton, forgotPasswordButton, registrationButton]
-            .forEach{
-                view.addSubview($0)
-            }
+        view.addSubviews([
+            imageView, greetingLabel, hintLabel, 
+            loginField, passwordField,
+            logInButton, forgotPasswordButton,
+            registrationButton
+        ])
     }
     
     private func setupConstraints() { 
+        [loginField, passwordField,
+         logInButton, forgotPasswordButton,
+         registrationButton]
+            .forEach{
+                $0.constraintEdges(to: view, withValue: 24.0)
+            }
+        
         NSLayoutConstraint.activate([
             
             // Logo constraints
@@ -124,28 +185,18 @@ final class AuthViewController: UIViewController {
             
             // Login TextField constraints
             loginField.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: 48),
-            loginField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            loginField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             
             // Password TextField constraints
             passwordField.topAnchor.constraint(equalTo: loginField.bottomAnchor, constant: 16),
-            passwordField.leadingAnchor.constraint(equalTo: loginField.leadingAnchor),
-            passwordField.trailingAnchor.constraint(equalTo: loginField.trailingAnchor),
             
             // Log In Button constraints
             logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24),
-            logInButton.leadingAnchor.constraint(equalTo: loginField.leadingAnchor),
-            logInButton.trailingAnchor.constraint(equalTo: loginField.trailingAnchor),
             
             // Button "Forgot password" constraints
             forgotPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
-            forgotPasswordButton.leadingAnchor.constraint(equalTo: loginField.leadingAnchor),
-            forgotPasswordButton.trailingAnchor.constraint(equalTo: loginField.trailingAnchor),
             
             // Button "Register" constraints
             registrationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
-            registrationButton.leadingAnchor.constraint(equalTo: loginField.leadingAnchor),
-            registrationButton.trailingAnchor.constraint(equalTo: loginField.trailingAnchor),
         ])
     }
 }
