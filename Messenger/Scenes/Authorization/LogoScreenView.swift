@@ -6,6 +6,8 @@ final class LogoScreenView: UIView {
     
     private enum Constants {
         static let darkBlue = UIColor(red: 0.0, green: 102.0 / 255.0, blue: 204.0 / 255.0, alpha: 1.0)
+        static let viewCornerRadius: CGFloat = 20.0
+        static let viewSize: CGFloat = 96.0
     }
     
     // MARK: - UI-elements
@@ -16,16 +18,29 @@ final class LogoScreenView: UIView {
         return imageView
     }()
     
+    // MARK: - Content Size
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: Constants.viewSize, height: Constants.viewSize)
+    }
+    
     // MARK: - Initializers
     
     init(typeOfScreen type: LogoScreenType) {
         super.init(frame: .zero)
         setImage(type)
-        let gradient = getGradient(type)
-        setupView(with: gradient)
+        createGradient(type)
+        setupView(ofType: type)
     }
 
     required init?(coder: NSCoder) { nil }
+    
+    // MARK: - Lifecycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.sublayers?.first { $0 is CAGradientLayer }?.frame = bounds
+    }
     
     // MARK: - Private methods
     
@@ -42,30 +57,39 @@ final class LogoScreenView: UIView {
         }
     }
     
-    private func getGradient(_ type: LogoScreenType) -> CAGradientLayer {
-        let gradient = CAGradientLayer()
+    private func createGradient(_ type: LogoScreenType) {
         switch type {
         case .authorization, .accountRegistration:
+            let gradient = CAGradientLayer()
+            gradient.cornerRadius = Constants.viewCornerRadius
             gradient.colors = [
-                UIColor.mBlue,
-                Constants.darkBlue]
+                UIColor.mBlue.cgColor,
+                Constants.darkBlue.cgColor
+            ]
+            layer.addSublayer(gradient)
         default:
-            gradient.colors = [
-                UIColor.white,
-                UIColor.white]
+            backgroundColor = .mField
         }
-        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
-        return gradient
     }
     
-    private func setupView(with gradient: CAGradientLayer) {
-        self.backgroundColor = .clear
-        self.layer.insertSublayer(gradient, at: 0)
+    private func getSizeOfImage(_ type: LogoScreenType) -> CGFloat {
+        switch type {
+        case .authorization, .accountRegistration:
+            return 32.0
+        default:
+            return 48.0
+        }
+    }
+    
+    private func setupView(ofType type: LogoScreenType) {
+        layer.cornerRadius = Constants.viewCornerRadius
+        clipsToBounds = true
+        addSubview(imageView)
+        let size = getSizeOfImage(type)
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 48.0),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: size),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
         ])
     }
