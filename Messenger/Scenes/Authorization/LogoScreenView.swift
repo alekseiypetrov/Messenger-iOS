@@ -12,11 +12,12 @@ final class LogoScreenView: UIView {
     
     // MARK: - UI-elements
     
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private lazy var iconView = UIImageView()
+    
+    // MARK: - Private Properties
+    
+    private var image: UIImage
+    private var size: CGFloat
     
     // MARK: - Content Size
     
@@ -27,10 +28,11 @@ final class LogoScreenView: UIView {
     // MARK: - Initializers
     
     init(typeOfScreen type: LogoScreenType) {
+        image = type.image
+        size = type.sizeOfImage
         super.init(frame: .zero)
-        setImage(type)
         createGradient(type)
-        setupView(ofType: type)
+        setupView()
     }
 
     required init?(coder: NSCoder) { nil }
@@ -43,19 +45,6 @@ final class LogoScreenView: UIView {
     }
     
     // MARK: - Private methods
-    
-    private func setImage(_ type: LogoScreenType) {
-        switch type {
-        case .authorization, .accountRegistration:
-            imageView.image = .helloIcon
-        case .accountRecovery:
-            imageView.image = .clockIcon
-        case .mailConfirmation:
-            imageView.image = .mailIcon
-        case .passwordReset:
-            imageView.image = .successIcon
-        }
-    }
     
     private func createGradient(_ type: LogoScreenType) {
         switch type {
@@ -72,25 +61,15 @@ final class LogoScreenView: UIView {
         }
     }
     
-    private func getSizeOfImage(_ type: LogoScreenType) -> CGFloat {
-        switch type {
-        case .authorization, .accountRegistration:
-            return 32.0
-        default:
-            return 48.0
-        }
-    }
-    
-    private func setupView(ofType type: LogoScreenType) {
+    private func setupView() {
         layer.cornerRadius = Constants.viewCornerRadius
         clipsToBounds = true
-        addSubview(imageView)
-        let size = getSizeOfImage(type)
+        addSubview(iconView)
+        iconView.image = image
+        iconView.constraintEqualSides(withSize: size)
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: size),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
+            iconView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
     }
 }
