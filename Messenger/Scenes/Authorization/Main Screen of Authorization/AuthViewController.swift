@@ -7,7 +7,6 @@ final class AuthViewController: UIViewController {
     private enum Constants {
         static let borderWidth: CGFloat = 1.0
         static let buttonCornerRadius: CGFloat = 14.0
-        static let toggleButtonSize: CGFloat = 20.0
         
         enum AttributedTitles {
             static let logInButton = NSAttributedString(
@@ -32,6 +31,12 @@ final class AuthViewController: UIViewController {
                 ]
             )
         }
+        
+        enum Heights {
+            static let forHintLabel: CGFloat = 26.0
+            static let forGreetingLabel: CGFloat = 51.0
+            static let forButtons: CGFloat = 58.0
+        }
     }
     
     // MARK: - UI-elements
@@ -45,8 +50,6 @@ final class AuthViewController: UIViewController {
         label.text = "Добро пожаловать"
         label.font = UIFont.paragraph
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.heightAnchor.constraint(equalToConstant: 51).isActive = true
         return label
     }()
     
@@ -56,12 +59,10 @@ final class AuthViewController: UIViewController {
         label.font = UIFont.body
         label.textAlignment = .center
         label.textColor = .mText
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.heightAnchor.constraint(equalToConstant: 26).isActive = true
         return label
     }()
     
-    private lazy var loginField: TextFieldView = TextFieldView(typeOfField: .tag, isInProfile: false)
+    private lazy var loginField: TextFieldView = TextFieldView(typeOfField: .login, isInProfile: false)
 
     private lazy var passwordField: TextFieldView = TextFieldView(typeOfField: .password, isInProfile: false)
     
@@ -73,8 +74,6 @@ final class AuthViewController: UIViewController {
         )
         button.backgroundColor = .mBlue
         button.layer.cornerRadius = Constants.buttonCornerRadius
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 58).isActive = true
         return button
     }()
     
@@ -84,7 +83,6 @@ final class AuthViewController: UIViewController {
             Constants.AttributedTitles.forgotPasswordButton,
             for: .normal
         )
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -98,8 +96,6 @@ final class AuthViewController: UIViewController {
         button.layer.borderWidth = Constants.borderWidth
         button.layer.borderColor = UIColor.mBlue.cgColor
         button.layer.cornerRadius = Constants.buttonCornerRadius
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 58).isActive = true
         return button
     }()
     
@@ -140,10 +136,12 @@ final class AuthViewController: UIViewController {
             // Greeteng Label constraints
             greetingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             greetingLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
+            greetingLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forGreetingLabel),
             
             // Hint Label constraints
             hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             hintLabel.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 8),
+            hintLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forHintLabel),
             
             // Login TextField constraints
             loginField.topAnchor.constraint(equalTo: hintLabel.bottomAnchor, constant: 48),
@@ -153,12 +151,14 @@ final class AuthViewController: UIViewController {
             
             // Log In Button constraints
             logInButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 24),
+            logInButton.heightAnchor.constraint(equalToConstant: Constants.Heights.forButtons),
             
             // Button "Forgot password" constraints
             forgotPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
             
             // Button "Register" constraints
             registrationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            registrationButton.heightAnchor.constraint(equalTo: logInButton.heightAnchor),
         ])
     }
 }
