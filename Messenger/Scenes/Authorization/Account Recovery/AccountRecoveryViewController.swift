@@ -117,31 +117,41 @@ final class AccountRecoveryViewController: UIViewController {
             }
         
         NSLayoutConstraint.activate([
+            
+            // ScreenTitle Label Constraints
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forTitleLabel),
             
+            // Logo Constraints
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 90.0),
             
+            // Header Label Constraints
             headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32.0),
             headerLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forHeaderLabel),
             
+            // Hint to Type Label Constraints
             hintToTypeLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 12.0),
             
+            // Title Label for Email TextField Constraints
             titleLabelForField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40.0),
             titleLabelForField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24.0),
             titleLabelForField.topAnchor.constraint(equalTo: hintToTypeLabel.bottomAnchor, constant: 40.0),
             titleLabelForField.heightAnchor.constraint(equalToConstant: Constants.Heights.forTitleLabelForField),
             
+            // Email TextField Constraints
             emailField.topAnchor.constraint(equalTo: titleLabelForField.bottomAnchor, constant: 4.0),
             
+            // Button to Send Code Constraints
             sendCodeButton.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 24.0),
             sendCodeButton.heightAnchor.constraint(equalToConstant: Constants.Heights.forSendCodeButton),
             
+            // Question Label Constraints
             questionLabel.topAnchor.constraint(equalTo: sendCodeButton.bottomAnchor, constant: 32.0),
             questionLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forQuestionLabel),
             
+            // Hint to Find Letter in Email Label Constraints
             hintToFindLetterLabel.topAnchor.constraint(equalTo: questionLabel.bottomAnchor, constant: 8.0),
         ])
     }
