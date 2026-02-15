@@ -61,40 +61,9 @@ final class AuthViewController: UIViewController {
         return label
     }()
     
-    // TODO: - Переделать под UIView
-    private lazy var loginField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .mField
-        textField.placeholder = "Тег или email"
-        textField.font = UIFont.body
-        textField.layer.cornerRadius = Constants.buttonCornerRadius
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: 58).isActive = true
-        return textField
-    }()
-    
-    private lazy var toggleButton: UIButton = {
-        let button = UIButton()
-        button.setImage(.eyeIcon, for: .normal)
-        button.addTarget(nil, action: #selector(toggleButtonPushed), for: .touchUpInside)
-        button.constraintEqualSides(withSize: Constants.toggleButtonSize)
-        return button
-    }()
-    
-    // TODO: - Переделать под UIView
-    private lazy var passwordField: UITextField = {
-        let textField = UITextField()
-        textField.backgroundColor = .mField
-        textField.placeholder = "Пароль"
-        textField.font = UIFont.body
-        textField.isSecureTextEntry = true
-        textField.rightView = toggleButton
-        textField.rightViewMode = .always
-        textField.layer.cornerRadius = Constants.buttonCornerRadius
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: 58).isActive = true
-        return textField
-    }()
+    private lazy var loginField: TextFieldView = TextFieldView(typeOfField: .tag, isInProfile: false)
+
+    private lazy var passwordField: TextFieldView = TextFieldView(typeOfField: .password, isInProfile: false)
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()
@@ -140,13 +109,6 @@ final class AuthViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupConstraints()
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    private func toggleButtonPushed() {
-        passwordField.isSecureTextEntry.toggle()
     }
     
     // MARK: - Private methods
