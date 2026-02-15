@@ -46,7 +46,7 @@ final class TextFieldView: UIView {
         return textField
     }()
     
-    private lazy var vStack: UIStackView = {
+    private lazy var hStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = Constants.spacing
@@ -84,10 +84,10 @@ final class TextFieldView: UIView {
         backgroundColor = .mField
         layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true
-        addSubviews([vStack])
+        addSubviews([hStack])
         [tagLabel, textField, toggleButton]
             .forEach{
-                vStack.addArrangedSubview($0)
+                hStack.addArrangedSubview($0)
             }
         tagLabel.isHidden = !(type == .tag)
         toggleButton.isHidden = !type.isSecure
@@ -95,7 +95,7 @@ final class TextFieldView: UIView {
     
     private func setupConstraints() {
         let height = isInProfile ? Constants.profileHeightOfView : Constants.basicHeightOfView
-        vStack.constraintEdges(to: self, withValue: Constants.horizontalPadding)
+        hStack.constraintEdges(to: self, withValue: Constants.horizontalPadding)
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: height),
         ])
