@@ -75,6 +75,7 @@ final class ConfirmingEmailViewController: UIViewController {
         button.isEnabled = false
         button.backgroundColor = .mBlue.withAlphaComponent(0.5)
         button.layer.cornerRadius = Constants.cornerRadius
+        button.addTarget(nil, action: #selector(confirmingButtonPushed), for: .touchUpInside)
         return button
     }()
     
@@ -95,9 +96,15 @@ final class ConfirmingEmailViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Actions
+    
+    @objc
+    private func confirmingButtonPushed() { }
+    
     // MARK: - Private methods
     
     private func setupView() {
+        navigationItem.titleView = titleLabel
         view.backgroundColor = .mBackground
         view.addSubviews([titleLabel, imageView, headerLabel, hintToTypeLabel, emailLabel, codeField, confirmingButton, countingTickLabel])
     }
@@ -110,14 +117,9 @@ final class ConfirmingEmailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            // ScreenTitle Label Constraints
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forTitleLabel),
-            
             // Logo Constraints
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 128.0),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 128.0),
             
             // Header Label Constraints
             headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32.0),

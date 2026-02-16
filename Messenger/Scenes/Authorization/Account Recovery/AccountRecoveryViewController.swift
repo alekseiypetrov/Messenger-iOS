@@ -72,6 +72,7 @@ final class AccountRecoveryViewController: UIViewController {
         )
         button.backgroundColor = .mBlue
         button.layer.cornerRadius = Constants.cornerRadius
+        button.addTarget(nil, action: #selector(sendCodeButtonPushed), for: .touchUpInside)
         return button
     }()
     
@@ -103,9 +104,19 @@ final class AccountRecoveryViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Actions
+    
+    @objc
+    private func sendCodeButtonPushed() {
+        let viewController = ConfirmingEmailViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     // MARK: - Private methods
     
     private func setupView() {
+        navigationItem.titleView = titleLabel
+        navigationItem.backButtonDisplayMode = .minimal
         view.backgroundColor = .mBackground
         view.addSubviews([titleLabel, imageView, headerLabel, hintToTypeLabel, titleLabelForField, emailField, sendCodeButton, questionLabel, hintToFindLetterLabel])
     }
@@ -118,14 +129,9 @@ final class AccountRecoveryViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            // ScreenTitle Label Constraints
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forTitleLabel),
-            
             // Logo Constraints
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 90.0),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 90.0),
             
             // Header Label Constraints
             headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32.0),

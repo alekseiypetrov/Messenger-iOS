@@ -74,6 +74,7 @@ final class AuthViewController: UIViewController {
         )
         button.backgroundColor = .mBlue
         button.layer.cornerRadius = Constants.buttonCornerRadius
+        button.addTarget(nil, action: #selector(loginButtonPushed), for: .touchUpInside)
         return button
     }()
     
@@ -83,6 +84,7 @@ final class AuthViewController: UIViewController {
             Constants.AttributedTitles.forgotPasswordButton,
             for: .normal
         )
+        button.addTarget(nil, action: #selector(recoveryAccountButtonPushed), for: .touchUpInside)
         return button
     }()
     
@@ -96,6 +98,7 @@ final class AuthViewController: UIViewController {
         button.layer.borderWidth = Constants.borderWidth
         button.layer.borderColor = UIColor.mBlue.cgColor
         button.layer.cornerRadius = Constants.buttonCornerRadius
+        button.addTarget(nil, action: #selector(registerAccountButtonPushed), for: .touchUpInside)
         return button
     }()
     
@@ -107,9 +110,24 @@ final class AuthViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Actions
+    
+    @objc
+    private func loginButtonPushed() { }
+    
+    @objc
+    private func recoveryAccountButtonPushed() {
+        let viewController = AccountRecoveryViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    @objc
+    private func registerAccountButtonPushed() { }
+    
     // MARK: - Private methods
     
     private func setupView() {
+        navigationItem.backButtonDisplayMode = .minimal
         view.backgroundColor = .mBackground
         view.addSubviews([
             imageView, greetingLabel, hintLabel, 
