@@ -28,6 +28,8 @@ final class TitledTextFieldView: UIView {
         self.type = type
         self.isInProfile = isInProfile
         super.init(frame: .zero)
+        setupView()
+        setupConstrains()
     }
     
     required init?(coder: NSCoder) { nil }
