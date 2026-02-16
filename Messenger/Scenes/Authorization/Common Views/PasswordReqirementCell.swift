@@ -22,6 +22,7 @@ final class PasswordReqirementCell: UITableViewCell {
     
     var image: UIImage {
         didSet {
+            statusView.image = image
             switch image {
             case .filledCircleIcon:
                 title.textColor = .mText
