@@ -101,8 +101,7 @@ final class ConfirmingEmailViewController: UIViewController {
     @objc
     private func confirmingButtonPushed() {
         let viewController = CreateNewPasswordViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     // MARK: - Private methods

@@ -82,31 +82,31 @@ final class CreateNewPasswordViewController: UIViewController {
     // MARK: - Actions
     
     @objc
-    private func resetPasswordButtonPushed() { }
+    private func resetPasswordButtonPushed() { 
+        navigationController?.popToRootViewController(animated: true)
+    }
     
     // MARK: - Private methods
     
     private func setupView() {
+        navigationItem.hidesBackButton = true
+        navigationItem.titleView = titleLabel
         view.backgroundColor = .mBackground
         view.addSubviews([titleLabel, imageView, headerLabel, hintToTypeLabel, newPasswordFieldView, confirmPasswordFieldView, requirementsView, resetPasswordButton])
     }
 
     private func setupConstraints() {
         headerLabel.constraintEdges(to: view, withValue: 16.0)
-        [titleLabel, hintToTypeLabel, newPasswordFieldView, confirmPasswordFieldView, requirementsView, resetPasswordButton]
+        [hintToTypeLabel, newPasswordFieldView, confirmPasswordFieldView, requirementsView, resetPasswordButton]
             .forEach{
                 $0.constraintEdges(to: view, withValue: 24.0)
             }
         
         NSLayoutConstraint.activate([
             
-            //
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 30.0),
-            
             // Logo Constraints
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32.0),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32.0),
             
             // Header Label Constraints
             headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32.0),
