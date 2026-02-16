@@ -99,7 +99,11 @@ final class ConfirmingEmailViewController: UIViewController {
     // MARK: - Actions
     
     @objc
-    private func confirmingButtonPushed() { }
+    private func confirmingButtonPushed() {
+        let viewController = CreateNewPasswordViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
     
     // MARK: - Private methods
     
