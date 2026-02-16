@@ -31,6 +31,27 @@ enum TextFieldType {
         }
     }
     
+    var title: String {
+        switch self {
+        case .password:
+            return "Пароль"
+        case .newPassword:
+            return "Новый пароль"
+        case .confirmingPassword:
+            return "Подтверждение пароля"
+        case .email:
+            return "Email"
+        case .name:
+            return "Имя"
+        case .surname:
+            return "Фамилия"
+        case .tag:
+            return "Тег"
+        default:
+            return ""
+        }
+    }
+    
     var isSecure: Bool {
         switch self {
         case .password, .newPassword, .confirmingPassword:
