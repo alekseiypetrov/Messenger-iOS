@@ -122,7 +122,10 @@ final class AuthViewController: UIViewController {
     }
     
     @objc
-    private func registerAccountButtonPushed() { }
+    private func registerAccountButtonPushed() { 
+        let viewController = AccountRegistrationViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
     
     // MARK: - Private methods
     
