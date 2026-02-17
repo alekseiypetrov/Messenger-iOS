@@ -58,28 +58,59 @@ final class AccountRegistrationViewController: UIViewController {
         return label
     }()
     
-    private lazy var emailField: TitledTextFieldView = TitledTextFieldView(type: .email, isInProfile: false)
-    private lazy var nameField: TitledTextFieldView = TitledTextFieldView(type: .name, isInProfile: false)
-    private lazy var surnameField: TitledTextFieldView = TitledTextFieldView(type: .surname, isInProfile: false)
-    private lazy var tagField: TitledTextFieldView = TitledTextFieldView(type: .tag, isInProfile: false)
-    private lazy var passwordField: TitledTextFieldView = TitledTextFieldView(type: .newPassword, isInProfile: false)
-    private lazy var confirmingPasswordField: TitledTextFieldView = TitledTextFieldView(type: .confirmingPassword, isInProfile: false)
+    private lazy var emailField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .email, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var nameField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .name, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var surnameField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .surname, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var tagField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .tag, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var passwordField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .newPassword, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var confirmingPasswordField: TitledTextFieldView = {
+        let view = TitledTextFieldView(type: .confirmingPassword, isInProfile: false)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var vStack: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [emailField, hStack, tagField, passwordField, confirmingPasswordField])
         stack.axis = .vertical
         stack.spacing = Constants.Spacing.vertical
         stack.alignment = .center
         stack.distribution = .fill
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
     private lazy var hStack: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [nameField, surnameField])
         stack.axis = .horizontal
         stack.spacing = Constants.Spacing.horizontal
         stack.alignment = .center
         stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     
@@ -96,6 +127,7 @@ final class AccountRegistrationViewController: UIViewController {
     private lazy var starringLabel: UILabel = {
         let label = UILabel()
         label.text = "Регистрируясь, вы соглашаетесь с"
+        label.textColor = .mText
         label.font = .plainText2
         label.textAlignment = .center
         return label
@@ -117,11 +149,26 @@ final class AccountRegistrationViewController: UIViewController {
         return button
     }()
     
+    private lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.showsVerticalScrollIndicator = true
+        scroll.backgroundColor = .mBackground
+        return scroll
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupView()
+        setupScrollView()
         setupConstraints()
     }
     
@@ -132,7 +179,7 @@ final class AccountRegistrationViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc 
+    @objc
     private func showUsageConditions() { }
     
     @objc
@@ -140,34 +187,46 @@ final class AccountRegistrationViewController: UIViewController {
     
     // MARK: - Private methods
     
-    private func setupView() {
+    private func setupNavigationBar() {
         navigationItem.titleView = titleLabel
         navigationItem.backButtonDisplayMode = .minimal
+    }
+    
+    private func setupView() {
         view.backgroundColor = .mBackground
-        view.addSubviews([logoView, hintToTypeLabel, vStack, registrationButton, starringLabel, usageConditionsButton, privacyPolicyButton])
-        [nameField, surnameField]
-            .forEach{
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                hStack.addArrangedSubview($0)
-            }
-        [emailField, hStack, tagField, passwordField, confirmingPasswordField]
-            .forEach{
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                vStack.addArrangedSubview($0)
-                $0.constraintEdges(to: vStack, withValue: 0.0)
-            }
+        view.addSubviews([scrollView])
+    }
+    
+    private func setupScrollView() {
+        scrollView.addSubviews([contentView])
+        contentView.addSubviews([logoView, hintToTypeLabel, vStack, registrationButton, starringLabel, usageConditionsButton, privacyPolicyButton])
     }
     
     private func setupConstraints() {
+        scrollView.constraintEdges(to: view, withValue: 0.0)
+        contentView.constraintEdges(to: scrollView, withValue: 0.0)
+        [emailField, hStack, tagField, passwordField, confirmingPasswordField]
+            .forEach{
+                $0.constraintEdges(to: vStack, withValue: 0.0)
+            }
         [hintToTypeLabel, vStack, registrationButton, starringLabel, usageConditionsButton, privacyPolicyButton]
             .forEach{
-                $0.constraintEdges(to: view, withValue: 24.0)
+                $0.constraintEdges(to: contentView, withValue: 24.0)
             }
         NSLayoutConstraint.activate([
             
+            // ScrollView Constraints
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            // ContentView Constraints
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
             // Logo View Constraints
-            logoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.0),
+            logoView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            logoView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20.0),
             
             // Hint To Type Label Constraints
             hintToTypeLabel.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 16.0),
@@ -185,8 +244,8 @@ final class AccountRegistrationViewController: UIViewController {
             starringLabel.heightAnchor.constraint(equalToConstant: 20.0),
             usageConditionsButton.topAnchor.constraint(equalTo: starringLabel.bottomAnchor, constant: 1.0),
             usageConditionsButton.heightAnchor.constraint(equalToConstant: 24.0),
-            privacyPolicyButton.topAnchor.constraint(equalTo: usageConditionsButton.bottomAnchor, constant: 2.0),
-            privacyPolicyButton.heightAnchor.constraint(equalToConstant: 24.0),
+            privacyPolicyButton.topAnchor.constraint(equalTo: usageConditionsButton.bottomAnchor, constant: 1.0),
+            privacyPolicyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0),
         ])
     }
 }
