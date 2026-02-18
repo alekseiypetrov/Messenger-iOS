@@ -5,6 +5,7 @@ final class PasswordReqirementCell: UITableViewCell {
     // MARK: - Constants
     
     private enum Constants {
+        static let emptyCheckmarkImage: UIImage = .filledCircleIcon.withTintColor(.mCheckmark)
         static let heightForTitle: CGFloat = 20.0
     }
     
@@ -14,7 +15,7 @@ final class PasswordReqirementCell: UITableViewCell {
     
     // MARK: - UI-elements
     
-    private lazy var statusView: UIImageView = UIImageView(image: .filledCircleIcon)
+    private lazy var statusView: UIImageView = UIImageView(image: Constants.emptyCheckmarkImage)
     
     private lazy var title: UILabel = {
         let label = UILabel()
@@ -30,7 +31,7 @@ final class PasswordReqirementCell: UITableViewCell {
         didSet {
             statusView.image = image
             switch image {
-            case .filledCircleIcon:
+            case Constants.emptyCheckmarkImage:
                 title.textColor = .mText
             case .successCircleIcon:
                 title.textColor = .mDarkGreen
@@ -49,7 +50,7 @@ final class PasswordReqirementCell: UITableViewCell {
     // MARK: - Initializers
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        image = .filledCircleIcon
+        image = Constants.emptyCheckmarkImage
         text = ""
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -61,12 +62,13 @@ final class PasswordReqirementCell: UITableViewCell {
     // MARK: - Lifecycle
     
     override func prepareForReuse() {
-        image = .filledCircleIcon
+        image = Constants.emptyCheckmarkImage
     }
     
     // MARK: - Private methods
     
     private func setupView() {
+        contentView.backgroundColor = .mField
         contentView.addSubviews([statusView, title])
     }
     

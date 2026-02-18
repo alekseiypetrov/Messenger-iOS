@@ -53,7 +53,7 @@ final class PasswordRequirementsView: UIView {
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
+        backgroundColor = .mField
         layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true
         addSubviews([title, tableView])
