@@ -62,6 +62,7 @@ final class LogoScreenView: UIView {
     }
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = Constants.viewCornerRadius
         clipsToBounds = true
         addSubview(iconView)

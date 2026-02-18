@@ -37,6 +37,7 @@ final class TitledTextFieldView: UIView {
     // MARK: - Private methods
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .mBackground
         addSubviews([title, textField])
     }

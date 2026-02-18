@@ -49,6 +49,7 @@ final class CodeInputView: UIView {
     // MARK: - Private methods
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         addSubviews([stackView])
         
         NSLayoutConstraint.activate([

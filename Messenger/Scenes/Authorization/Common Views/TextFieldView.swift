@@ -81,6 +81,7 @@ final class TextFieldView: UIView {
     // MARK: - Private methods
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .mField
         layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true

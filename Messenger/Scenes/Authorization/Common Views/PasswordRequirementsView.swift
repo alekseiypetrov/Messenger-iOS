@@ -47,6 +47,7 @@ final class PasswordRequirementsView: UIView {
     // MARK: - Private methods
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         layer.cornerRadius = Constants.cornerRadius
         clipsToBounds = true
