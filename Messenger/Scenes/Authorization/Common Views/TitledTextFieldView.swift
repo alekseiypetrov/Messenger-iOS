@@ -2,6 +2,12 @@ import UIKit
 
 final class TitledTextFieldView: UIView {
     
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let heightOfTitle: CGFloat = 20.0
+    }
+    
     // MARK: - UI-elements
     
     private lazy var title: UILabel = {
@@ -60,7 +66,7 @@ final class TitledTextFieldView: UIView {
             title.topAnchor.constraint(equalTo: topAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             title.trailingAnchor.constraint(equalTo: trailingAnchor),
-            title.heightAnchor.constraint(equalToConstant: 20.0),
+            title.heightAnchor.constraint(equalToConstant: Constants.heightOfTitle),
             
             // TextField Constraints
             textField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4.0),

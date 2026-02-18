@@ -12,6 +12,13 @@ final class AccountRegistrationViewController: UIViewController {
             static let vertical: CGFloat = 16.0
         }
         
+        enum Heights {
+            static let forStarringLabel: CGFloat = 20.0
+            static let forUsageConditionsButton: CGFloat = 24.0
+            static let forHintToTypeLabel: CGFloat = 26.0
+            static let forRegistrationButton: CGFloat = 58.0
+        }
+        
         enum AttributedTitles {
             static let registrationButtonTitle = NSAttributedString(
                 string: "Создать аккаунт",
@@ -201,20 +208,20 @@ final class AccountRegistrationViewController: UIViewController {
             
             // Hint To Type Label Constraints
             hintToTypeLabel.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 16.0),
-            hintToTypeLabel.heightAnchor.constraint(equalToConstant: 26.0),
+            hintToTypeLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forHintToTypeLabel),
             
             // Vertical Stack Constraints
             vStack.topAnchor.constraint(equalTo: hintToTypeLabel.bottomAnchor, constant: 32.0),
             vStack.bottomAnchor.constraint(equalTo: registrationButton.topAnchor, constant: -32.0),
             
             // Registration Button Constraints
-            registrationButton.heightAnchor.constraint(equalToConstant: 58.0),
+            registrationButton.heightAnchor.constraint(equalToConstant: Constants.Heights.forRegistrationButton),
             
             // starringLabel, usageConditionsButton, privacyPolicyButton Constraints
             starringLabel.topAnchor.constraint(equalTo: registrationButton.bottomAnchor, constant: 16.0),
-            starringLabel.heightAnchor.constraint(equalToConstant: 20.0),
+            starringLabel.heightAnchor.constraint(equalToConstant: Constants.Heights.forStarringLabel),
             usageConditionsButton.topAnchor.constraint(equalTo: starringLabel.bottomAnchor, constant: 1.0),
-            usageConditionsButton.heightAnchor.constraint(equalToConstant: 24.0),
+            usageConditionsButton.heightAnchor.constraint(equalToConstant: Constants.Heights.forUsageConditionsButton),
             privacyPolicyButton.topAnchor.constraint(equalTo: usageConditionsButton.bottomAnchor, constant: 1.0),
             privacyPolicyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.0),
         ])

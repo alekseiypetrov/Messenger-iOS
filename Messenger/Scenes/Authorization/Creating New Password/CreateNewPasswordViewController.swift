@@ -6,7 +6,6 @@ final class CreateNewPasswordViewController: UIViewController {
     
     private enum Constants {
         static let cornerRadius: CGFloat = 14.0
-        static let verticalSpacing: CGFloat = 16.0
         static let attributedTitleForSendCodeButton = NSAttributedString(
                 string: "Сбросить пароль",
                 attributes: [
@@ -16,10 +15,10 @@ final class CreateNewPasswordViewController: UIViewController {
             )
         enum Heights {
             static let forTitleLabelForField: CGFloat = 20.0
-            static let forQuestionLabel: CGFloat = 23.0
-            static let forTitleLabel: CGFloat = 30.0
             static let forHeaderLabel: CGFloat = 42.0
-            static let forSendCodeButton: CGFloat = 58.0
+            static let forResetPasswordButton: CGFloat = 58.0
+            static let forNewPasswordField: CGFloat = 82.0
+            static let forRequirementsView: CGFloat = 108.0
         }
     }
     
@@ -115,21 +114,21 @@ final class CreateNewPasswordViewController: UIViewController {
             // Hint to Type Label Constraints
             hintToTypeLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 12.0),
             
-            //
+            // New Password TextField Constraints
             newPasswordFieldView.topAnchor.constraint(equalTo: hintToTypeLabel.bottomAnchor, constant: 40.0),
-            newPasswordFieldView.heightAnchor.constraint(equalToConstant: 82.0),
+            newPasswordFieldView.heightAnchor.constraint(equalToConstant: Constants.Heights.forNewPasswordField),
             
-            //
+            // Confirming Password TextField Constraints
             confirmPasswordFieldView.topAnchor.constraint(equalTo: newPasswordFieldView.bottomAnchor, constant: 16.0),
             confirmPasswordFieldView.heightAnchor.constraint(equalTo: newPasswordFieldView.heightAnchor),
             
-            //
+            // Password Requirements Constraints
             requirementsView.topAnchor.constraint(equalTo: confirmPasswordFieldView.bottomAnchor, constant: 16.0),
-            requirementsView.heightAnchor.constraint(equalToConstant: 108.0),
+            requirementsView.heightAnchor.constraint(equalToConstant: Constants.Heights.forRequirementsView),
             
-            //
+            // Reset Password Button Constraints
             resetPasswordButton.topAnchor.constraint(equalTo: requirementsView.bottomAnchor, constant: 16.0),
-            resetPasswordButton.heightAnchor.constraint(equalToConstant: 58.0),
+            resetPasswordButton.heightAnchor.constraint(equalToConstant: Constants.Heights.forResetPasswordButton),
         ])
     }
 }

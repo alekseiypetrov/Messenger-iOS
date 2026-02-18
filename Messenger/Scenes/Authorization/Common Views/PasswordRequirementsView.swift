@@ -10,6 +10,11 @@ final class PasswordRequirementsView: UIView {
             "Минимум 8 символов",
             "Пароли совпадают",
         ]
+        
+        enum Heights {
+            static let forTitle: CGFloat = 20.0
+            static let forRowInTable: CGFloat = 24.0
+        }
     }
     
     // MARK: - UI-elements
@@ -25,7 +30,7 @@ final class PasswordRequirementsView: UIView {
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
-        table.rowHeight = 24.0
+        table.rowHeight = Constants.Heights.forRowInTable
         table.allowsSelection = false
         table.isScrollEnabled = false
         table.separatorStyle = .none
@@ -55,22 +60,24 @@ final class PasswordRequirementsView: UIView {
     }
     
     private func setupConstrains() {
+        [title, tableView]
+            .forEach{
+                $0.constraintEdges(to: self, withValue: 16.0)
+            }
         NSLayoutConstraint.activate([
             
             // Title Label Constraints
-            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
             title.topAnchor.constraint(equalTo: topAnchor, constant: 16.0),
-            title.heightAnchor.constraint(equalToConstant: 20.0),
+            title.heightAnchor.constraint(equalToConstant: Constants.Heights.forTitle),
             
             // TableView Constrains
-            tableView.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: title.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8.0),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16.0),
         ])
     }
 }
+
+// MARK: - PasswordRequirementsView + UITableViewDataSource
 
 extension PasswordRequirementsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

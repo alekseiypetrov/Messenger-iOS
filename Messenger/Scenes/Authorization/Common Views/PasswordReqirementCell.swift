@@ -2,6 +2,12 @@ import UIKit
 
 final class PasswordReqirementCell: UITableViewCell {
     
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let heightForTitle: CGFloat = 20.0
+    }
+    
     // MARK: - Static Properties
     
     static let identifier = "PasswordReqirementCell"
@@ -77,7 +83,7 @@ final class PasswordReqirementCell: UITableViewCell {
             title.leadingAnchor.constraint(equalTo: statusView.trailingAnchor, constant: 8.0),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            title.heightAnchor.constraint(equalToConstant: 20.0),
+            title.heightAnchor.constraint(equalToConstant: Constants.heightForTitle),
         ])
     }
 }

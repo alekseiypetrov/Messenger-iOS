@@ -5,10 +5,8 @@ final class CodeInputView: UIView {
     // MARK: - Constants
     
     private enum Constants {
-        static let borderWidth: CGFloat = 1.0
         static let horizontalSpacing: CGFloat = 12.0
         static let cornerRadius: CGFloat = 14.0
-        static let heightForView: CGFloat = 56.0
     }
     
     // MARK: - UI-elements

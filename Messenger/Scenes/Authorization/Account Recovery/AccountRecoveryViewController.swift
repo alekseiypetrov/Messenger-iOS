@@ -13,10 +13,10 @@ final class AccountRecoveryViewController: UIViewController {
                     .foregroundColor: UIColor.white,
                 ]
             )
+        
         enum Heights {
             static let forTitleLabelForField: CGFloat = 20.0
             static let forQuestionLabel: CGFloat = 23.0
-            static let forTitleLabel: CGFloat = 30.0
             static let forHeaderLabel: CGFloat = 42.0
             static let forSendCodeButton: CGFloat = 58.0
         }

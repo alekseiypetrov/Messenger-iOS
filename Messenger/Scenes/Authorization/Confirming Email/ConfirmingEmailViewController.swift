@@ -5,7 +5,6 @@ final class ConfirmingEmailViewController: UIViewController {
     // MARK: - Constants
     
     private enum Constants {
-        static let horizontalSpacing: CGFloat = 12.0
         static let cornerRadius: CGFloat = 14.0
         static let attributedTitleForConfirmingButton = NSAttributedString(
                 string: "Подтвердить",
@@ -17,7 +16,6 @@ final class ConfirmingEmailViewController: UIViewController {
         
         enum Heights {
             static let forSmallLabels: CGFloat = 26.0
-            static let forTitleLabel: CGFloat = 30.0
             static let forHeaderLabel: CGFloat = 42.0
             static let forCodeInputField: CGFloat = 56.0
             static let forConfirmingButton: CGFloat = 58.0
