@@ -41,9 +41,7 @@ final class AuthViewController: UIViewController {
     
     // MARK: - UI-elements
     
-    private lazy var imageView: LogoScreenView = {
-        LogoScreenView(typeOfScreen: .authorization)
-    }()
+    private lazy var imageView: LogoScreenView = LogoScreenView(typeOfScreen: .authorization)
     
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()

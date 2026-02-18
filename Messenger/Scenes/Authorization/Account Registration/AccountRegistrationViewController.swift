@@ -97,7 +97,10 @@ final class AccountRegistrationViewController: UIViewController {
         button.layer.cornerRadius = Constants.cornerRadius
         button.layer.masksToBounds = true
         button.backgroundColor = .mBlue
-        button.setAttributedTitle(Constants.AttributedTitles.registrationButtonTitle, for: .normal)
+        button.setAttributedTitle(
+            Constants.AttributedTitles.registrationButtonTitle,
+            for: .normal
+        )
         button.addTarget(nil, action: #selector(registerButonPushed), for: .touchUpInside)
         return button
     }()
