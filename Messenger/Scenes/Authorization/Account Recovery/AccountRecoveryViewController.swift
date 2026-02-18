@@ -62,7 +62,7 @@ final class AccountRecoveryViewController: UIViewController {
         return label
     }()
     
-    private lazy var emailField: TextFieldView = TextFieldView(typeOfField: .email, isInProfile: false)
+    private lazy var emailField: TextFieldView = TextFieldView(typeOfField: .email)
     
     private lazy var sendCodeButton: UIButton = {
         let button = UIButton()

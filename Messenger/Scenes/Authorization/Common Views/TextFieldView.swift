@@ -61,7 +61,7 @@ final class TextFieldView: UIView {
     
     // MARK: - Initializers
     
-    init(typeOfField type: TextFieldType, isInProfile: Bool) {
+    init(typeOfField type: TextFieldType, isInProfile: Bool = false) {
         self.type = type
         self.isInProfile = isInProfile
         super.init(frame: .zero)

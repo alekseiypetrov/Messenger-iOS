@@ -58,42 +58,13 @@ final class AccountRegistrationViewController: UIViewController {
         return label
     }()
     
-    private lazy var emailField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .email, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var nameField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .name, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var surnameField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .surname, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var tagField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .tag, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var passwordField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .newPassword, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var confirmingPasswordField: TitledTextFieldView = {
-        let view = TitledTextFieldView(type: .confirmingPassword, isInProfile: false)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+    private lazy var emailField: TitledTextFieldView = TitledTextFieldView(type: .email)
+    private lazy var nameField: TitledTextFieldView = TitledTextFieldView(type: .name)
+    private lazy var surnameField: TitledTextFieldView = TitledTextFieldView(type: .surname)
+    private lazy var tagField: TitledTextFieldView = TitledTextFieldView(type: .tag)
+    private lazy var passwordField: TitledTextFieldView = TitledTextFieldView(type: .newPassword)
+    private lazy var confirmingPasswordField: TitledTextFieldView = TitledTextFieldView(type: .confirmingPassword)
+
     private lazy var vStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [emailField, hStack, tagField, passwordField, confirmingPasswordField])
         stack.axis = .vertical

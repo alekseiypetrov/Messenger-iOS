@@ -54,8 +54,8 @@ final class CreateNewPasswordViewController: UIViewController {
         return label
     }()
     
-    private lazy var newPasswordFieldView: TitledTextFieldView = TitledTextFieldView(type: .newPassword, isInProfile: false)
-    private lazy var confirmPasswordFieldView: TitledTextFieldView = TitledTextFieldView(type: .confirmingPassword, isInProfile: false)
+    private lazy var newPasswordFieldView: TitledTextFieldView = TitledTextFieldView(type: .newPassword)
+    private lazy var confirmPasswordFieldView: TitledTextFieldView = TitledTextFieldView(type: .confirmingPassword)
     
     private lazy var requirementsView: PasswordRequirementsView = PasswordRequirementsView()
     

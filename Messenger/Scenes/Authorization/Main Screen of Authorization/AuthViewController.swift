@@ -62,9 +62,8 @@ final class AuthViewController: UIViewController {
         return label
     }()
     
-    private lazy var loginField: TextFieldView = TextFieldView(typeOfField: .login, isInProfile: false)
-
-    private lazy var passwordField: TextFieldView = TextFieldView(typeOfField: .password, isInProfile: false)
+    private lazy var loginField: TextFieldView = TextFieldView(typeOfField: .login)
+    private lazy var passwordField: TextFieldView = TextFieldView(typeOfField: .password)
     
     private lazy var logInButton: UIButton = {
         let button = UIButton()

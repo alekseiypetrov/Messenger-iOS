@@ -31,7 +31,7 @@ final class TitledTextFieldView: UIView {
     
     // MARK: - Initializers
     
-    init(type: TextFieldType, isInProfile: Bool) {
+    init(type: TextFieldType, isInProfile: Bool = false) {
         self.type = type
         self.isInProfile = isInProfile
         super.init(frame: .zero)
