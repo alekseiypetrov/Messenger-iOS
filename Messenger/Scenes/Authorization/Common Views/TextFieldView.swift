@@ -25,7 +25,6 @@ final class TextFieldView: UIView {
         label.text = "@"
         label.textColor = .mText
         label.textAlignment = .center
-        label.constraintEqualSides(withSize: Constants.Heights.forTagLabel)
         return label
     }()
     
@@ -33,7 +32,6 @@ final class TextFieldView: UIView {
         let button = UIButton()
         button.setImage(.eyeIcon, for: .normal)
         button.addTarget(nil, action: #selector(toggleButtonPushed), for: .touchUpInside)
-        button.constraintEqualSides(withSize: Constants.Heights.forToggleButton)
         return button
     }()
     
@@ -45,7 +43,6 @@ final class TextFieldView: UIView {
         textField.keyboardType = self.type.keyboardType
         textField.isSecureTextEntry = self.type.isSecure
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.heightAnchor.constraint(equalToConstant: self.isInProfile ? Constants.Heights.forViewInProfile : Constants.Heights.forViewBasic).isActive = true
         return textField
     }()
     
@@ -98,9 +95,12 @@ final class TextFieldView: UIView {
     }
     
     private func setupConstraints() {
-        let height = isInProfile ? Constants.Heights.forViewInProfile : Constants.Heights.forViewBasic
+        tagLabel.constraintEqualSides(withSize: Constants.Heights.forTagLabel)
+        toggleButton.constraintEqualSides(withSize: Constants.Heights.forToggleButton)
         hStack.constraintEdges(to: self, withValue: Constants.horizontalPadding)
+        let height = isInProfile ? Constants.Heights.forViewInProfile : Constants.Heights.forViewBasic
         NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalToConstant: height),
             heightAnchor.constraint(equalToConstant: height),
         ])
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
