@@ -13,8 +13,15 @@ final class TitledTextFieldView: UIView {
         return label
     }()
     
-    private lazy var textField: TextFieldView = {
-        TextFieldView(typeOfField: self.type, isInProfile: self.isInProfile)
+    private lazy var textField: TextFieldView = TextFieldView(typeOfField: self.type, isInProfile: self.isInProfile)
+    
+    private lazy var footer: UILabel = {
+        let label = UILabel()
+        label.text = self.type.footer
+        label.font = .plainText2
+        label.textAlignment = .left
+        label.textColor = .mText
+        return label
     }()
     
     // MARK: - Private properties
@@ -39,20 +46,39 @@ final class TitledTextFieldView: UIView {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .mBackground
-        addSubviews([title, textField])
+        var views = [title, textField]
+        if type == .tag {
+            views.append(footer)
+        }
+        addSubviews(views)
     }
     
     private func setupConstrains() {
-        textField.constraintEdges(to: self, withValue: 0.0)
-        
-        NSLayoutConstraint.activate([
+        var constraints = [
+            
+            // Title Label Constraints
             title.topAnchor.constraint(equalTo: topAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
             title.trailingAnchor.constraint(equalTo: trailingAnchor),
             title.heightAnchor.constraint(equalToConstant: 20.0),
             
+            // TextField Constraints
             textField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4.0),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
+        ]
+        if type == .tag {
+            constraints.append(contentsOf: [
+                
+                // Footer Constraints
+                footer.leadingAnchor.constraint(equalTo: title.leadingAnchor),
+                footer.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+                footer.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 4.0),
+                footer.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ])
+        } else {
+            constraints.append(textField.bottomAnchor.constraint(equalTo: bottomAnchor))
+        }
+        
+        textField.constraintEdges(to: self, withValue: 0.0)
+        NSLayoutConstraint.activate(constraints)
     }
 }

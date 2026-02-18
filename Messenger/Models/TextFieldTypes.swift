@@ -52,6 +52,15 @@ enum TextFieldType {
         }
     }
     
+    var footer: String {
+        switch self {
+        case .tag:
+            return "Только латиница, цифры и подчеркивание"
+        default:
+            return ""
+        }
+    }
+    
     var isSecure: Bool {
         switch self {
         case .password, .newPassword, .confirmingPassword:
