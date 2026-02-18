@@ -99,6 +99,10 @@ final class AuthViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Private properties
+    
+    private var delegate: SplashScreen?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -107,10 +111,19 @@ final class AuthViewController: UIViewController {
         setupConstraints()
     }
     
+    // MARK: - Public methods
+    
+    func setDelegate(_ delegate: SplashScreen) {
+        self.delegate = delegate
+    }
+    
     // MARK: - Actions
     
     @objc
-    private func loginButtonPushed() { }
+    private func loginButtonPushed() {
+        dismiss(animated: true)
+        delegate?.showTabBar()
+    }
     
     @objc
     private func recoveryAccountButtonPushed() {
